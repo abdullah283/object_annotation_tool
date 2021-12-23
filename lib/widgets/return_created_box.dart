@@ -1,27 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:object_annotation_tool/bloc/annotation_bloc.dart';
-import 'package:object_annotation_tool/bloc/bloc/panstartbloc_bloc.dart';
+import 'package:object_annotation_tool/blocs/annotation_bloc/bloc/annotation_bloc.dart';
 
-class ReturnBox extends StatefulWidget {
-  ReturnBox(
+class ReturnCreatedBox extends StatefulWidget {
+  const ReturnCreatedBox(
       {required this.alignmentContainerX,
       required this.alignmentContainerY,
       required this.widhtX,
       required this.heightY,
-      required this.tagName,
       Key? key})
       : super(key: key);
-  double alignmentContainerX;
-  double alignmentContainerY;
-  double heightY;
-  double widhtX;
-  String tagName;
+  final double alignmentContainerX;
+  final double alignmentContainerY;
+  final double heightY;
+  final double widhtX;
   @override
-  State<ReturnBox> createState() => _ReturnBoxState();
+  State<ReturnCreatedBox> createState() => _ReturnCreatedBoxState();
 }
 
-class _ReturnBoxState extends State<ReturnBox> {
+class _ReturnCreatedBoxState extends State<ReturnCreatedBox> {
   List<Positioned> widgets = [
     Positioned(
         top: 0,
@@ -32,21 +29,20 @@ class _ReturnBoxState extends State<ReturnBox> {
           color: Colors.black,
         )),
   ];
-  Stack? stack;
+  late Stack stack;
   @override
   Widget build(BuildContext context) {
-    PanstartblocBloc _panStartBloc = BlocProvider.of<PanstartblocBloc>(context);
     AnnotationBloc _annotationBloc = BlocProvider.of<AnnotationBloc>(context);
-    return BlocBuilder<PanstartblocBloc, PanstartblocState>(
-        bloc: _panStartBloc,
-        builder: (context, panEndState) {
-          if (panEndState is PanEndState) {
+    return BlocBuilder<AnnotationBloc, AnnotationState>(
+        bloc: _annotationBloc,
+        builder: (context, _panEndState) {
+          if (_panEndState is PanEndState) {
             Positioned sizeBox = Positioned(
                 top: widget.alignmentContainerY,
                 left: widget.alignmentContainerX,
                 child: Container(
                   child: Text(
-                    widget.tagName,
+                    _panEndState.tagName,
                     style: TextStyle(
                         color: Colors.orangeAccent,
                         fontSize: widget.heightY > widget.widhtX
@@ -60,9 +56,9 @@ class _ReturnBoxState extends State<ReturnBox> {
                 ));
             widgets.add(sizeBox);
             stack = Stack(children: widgets.map((e) => e).toList());
-            return stack!;
+            return stack;
           } else {
-            return widgets.length == 1 ? Text('') : stack!;
+            return widgets.length == 1 ? const SizedBox() : stack;
           }
         });
   }

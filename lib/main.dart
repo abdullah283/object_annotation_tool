@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:object_annotation_tool/bloc/annotation_bloc.dart';
-import 'package:object_annotation_tool/bloc/bloc/panstartbloc_bloc.dart';
+import 'blocs/annotation_bloc/bloc/annotation_bloc.dart';
 import 'widgets/home_page.dart';
 
 void main() {
@@ -18,13 +17,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: BlocProvider(
-        create: (context) => PanstartblocBloc(),
-        child: BlocProvider(
-          create: (context) => AnnotationBloc(),
-          child: HomePage(),
-        ),
-      ),
+      home: const HomePage(),
     );
   }
 }
