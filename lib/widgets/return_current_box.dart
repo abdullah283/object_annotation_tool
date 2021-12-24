@@ -68,12 +68,14 @@ class _ReturnCurrentBoxState extends State<ReturnCurrentBox> {
                   _widhtX = 0;
                   _control = true;
                 }
+                if (_annotationState is PanEndState) {
+                  _control = false;
+                }
                 if (_annotationState is PanUpdateState && _control == true) {
                   _lateX = _annotationState.deltaX;
                   _lateY = _annotationState.deltaY;
                   _heightY = (_lateY - _alignmentContainerY).abs();
                   _widhtX = (_lateX - _alignmentContainerX).abs();
-                  _control == false;
                 }
 //********* BU BOLUMDE ELDE EDİLEN VERİLER STACK YAPISINA VERİLİYOR **********//
                 if (_annotationState is AnnotationInitial) {
