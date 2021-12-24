@@ -62,10 +62,10 @@ class _ReturnCurrentBoxState extends State<ReturnCurrentBox> {
               builder: (context, _annotationState) {
 //*************** BU BOLUMDE BLOC YAPISINDAN GELEN VERİLER ALINIYOR **********//
                 if (_annotationState is PanStartState) {
-                  _alignmentContainerX = _annotationState.startX;
-                  _alignmentContainerY = _annotationState.startY;
-                  _heightY = 0;
-                  _widhtX = 0;
+                  _alignmentContainerX = _annotationState.startX - 2;
+                  _alignmentContainerY = _annotationState.startY - 2;
+                  _heightY = 2;
+                  _widhtX = 2;
                   _control = true;
                 }
                 if (_annotationState is PanEndState) {

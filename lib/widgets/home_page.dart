@@ -27,16 +27,20 @@ class _HomePageState extends State<HomePage> {
             heroTag: 'camera',
             child: const Icon(Icons.photo_camera),
             onPressed: () async {
-              return await _openCamera(context).then((value) {
-                imageFile = File(picture!.path);
-                Navigator.push(context, MaterialPageRoute(builder: (context) {
-                  return BlocProvider(
-                    create: (context) => AnnotationBloc(),
-                    child: ReturnCurrentBox(
-                      imageFile: imageFile!,
-                    ),
-                  );
-                }));
+              return _openCamera(context).then((value) {
+                if (value != null) {
+                  imageFile = File(picture!.path);
+                }
+                if (imageFile != null) {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) {
+                    return BlocProvider(
+                      create: (context) => AnnotationBloc(),
+                      child: ReturnCurrentBox(
+                        imageFile: imageFile!,
+                      ),
+                    );
+                  }));
+                }
               });
             }),
         const SizedBox(
@@ -46,16 +50,20 @@ class _HomePageState extends State<HomePage> {
             heroTag: 'gallery',
             child: const Icon(Icons.photo_album),
             onPressed: () async {
-              return await _openGallery(context).then((value) {
-                imageFile = File(picture!.path);
-                Navigator.push(context, MaterialPageRoute(builder: (context) {
-                  return BlocProvider(
-                    create: (context) => AnnotationBloc(),
-                    child: ReturnCurrentBox(
-                      imageFile: imageFile!,
-                    ),
-                  );
-                }));
+              return _openGallery(context).then((value) {
+                if (value != null) {
+                  imageFile = File(picture!.path);
+                }
+                if (imageFile != null) {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) {
+                    return BlocProvider(
+                      create: (context) => AnnotationBloc(),
+                      child: ReturnCurrentBox(
+                        imageFile: imageFile!,
+                      ),
+                    );
+                  }));
+                }
               });
             })
       ]),
